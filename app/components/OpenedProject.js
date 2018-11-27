@@ -81,20 +81,17 @@ export default class NewProject extends Component<Props> {
             <i className="fa fa-fire fa-1x no-drag"/>
             <Link style={{ fontSize: 16 }} to="/opened"> New Map </Link>
           </li>
-          {this.state.isLoading ?
+          {this.state.isLoading &&
 
-          <li style={{alignItems:'center',justifyContent:'center'}}>
+          <li style={{textAlign:'center',alignItems:'center',justifyContent:'center'}}>
             <ReactLoading className="fa" type='bars' color='#f44336' height={16} width={20}/>
 
-          </li>
-            :
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stdout}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stderr}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.error}</i>
-          </li>
-          }
+          </li>}
+
         </ul>
+        <div style={{flex:1}}>
+          <textarea wrap='off' disabled rows="18"  style={{resize:'none',backgroundColor:'transparent',borderColor:'transparent',color:'white', fontSize: 14, width: '100%' ,maxWidth:'100%'}} value={`${this.state.stdout}\n${this.state.stderr}\n${this.state.error}`}/>
+        </div>
       </div>
     );
   }

@@ -37,7 +37,7 @@ export default class NewProjectOptions extends Component<Props> {
       folderPath
     } = this.props;
     return (
-      <div>
+      <div style={{display:'flex',flexDirection:'column'}}>
         <div className={styles.backButton} data-tid="backButton">
           <Link to={routes.NEW}>
             <i style={{ marginTop: 6, marginLeft: 6, height: 24 }} className="fa fa-arrow-left"/>
@@ -152,8 +152,8 @@ export default class NewProjectOptions extends Component<Props> {
               onClick={() => {
                 if (!this.state.isLoading) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, [], (error, stdout, stderr) => {
-                      this.setState({ stdout, stderr, error, name: '', isLoading: false });
+                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, {shell:true}, (error, stdout, stderr) => {
+                      this.setState({ stdout:this.state.stdout+stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
                 }
@@ -175,12 +175,6 @@ export default class NewProjectOptions extends Component<Props> {
               }
             </a>
           </li>
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stdout}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stderr}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.error}</i>
-          </li>
-
         </ul>
         }
         {this.props.boilerplate === 'bowser' &&
@@ -225,12 +219,6 @@ export default class NewProjectOptions extends Component<Props> {
               }
             </a>
           </li>
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stdout}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stderr}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.error}</i>
-          </li>
-
         </ul>
         }
 
@@ -266,14 +254,11 @@ export default class NewProjectOptions extends Component<Props> {
               }
             </a>
           </li>
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stdout}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.stderr}</i>
-            <i style={{ fontSize: 10, width: '100%' }}> {this.state.error}</i>
-          </li>
-
         </ul>
         }
+        <div style={{flex:1}}>
+        <textarea wrap='off' disabled rows="18"  style={{resize:'none',backgroundColor:'transparent',borderColor:'transparent',color:'white', fontSize: 14, width: '100%' ,maxWidth:'100%'}} value={`${this.state.stdout}\n${this.state.stderr}\n${this.state.error}`}/>
+        </div>
       </div>
     );
   }
