@@ -6,7 +6,12 @@ import styles from './OpenedProject.css';
 import routes from '../constants/routes';
 
 const childProcess = require('child_process');
-
+const nonWindowsPlatforms = ['aix',
+  'darwin',
+  'freebsd',
+  'linux',
+  'openbsd',
+  'sunos']
 type Props = {
   folderPath: string
 };
@@ -22,15 +27,16 @@ export default class NewProjectOptions extends Component<Props> {
       error: '',
       name: '',
       isLoading: false,
-      //  i18n: false,
-      //   devScreens: false,
-      //   vectorIcons: false,
-      //   reduxPersist: false,
-      //   animatable: false,
+       i18n: false,
+        devScreens: false,
+        vectorIcons: false,
+        reduxPersist: false,
+        animatable: false,
       min: true,
       max: false,
       login:'',
       main: '',
+      drive:nonWindowsPlatforms.includes(process.platform) ? ' ':' /D '
     };
   }
 
@@ -40,26 +46,44 @@ export default class NewProjectOptions extends Component<Props> {
     } = this.props;
     return (
       <div style={{display:'flex',flexDirection:'column',overflow: 'scroll',height:710}}>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to={routes.NEW}>
-            <i style={{ marginTop: 6, marginLeft: 6, height: 24 }} className="fa fa-arrow-left"/>
+        <div className="toolbar" style={{display:'flex',flexDirection:'row', width: '100%', height: 24, textAlign: 'right', justifyContent: 'right' }}>
+          <Link className="no-drag" to={routes.NEW}>
+            <i style={{  marginLeft: 6, height: 24 }} className="fa fa-arrow-left"/>
           </Link>
+          <div style={{flex:1}}/>
+          <a className='no-drag' onClick={()=>{
+            const { remote } = window.require('electron');
+            remote.getCurrentWindow().minimize();
+          }}>
+            <i style={{ marginRight: 8 }} className="fa fa-minus"/>
+          </a>
+          <a className='no-drag' onClick={()=>{
+            const { remote } = window.require('electron');
+            remote.getCurrentWindow().close();
+          }}>
+            <i style={{ marginRight: 16 }} className="fa fa-times"/>
+          </a>
+
         </div>
+
         {this.props.boilerplate === 'andross' &&
         <div style={{display:'flex',width:'100%',justifyContent:'center',alignItems:'center'}}>
         <img alt='logo' height='150' src={require('../../resources/launch-icon@3x.png')}/>
         </div>
         }
         {this.props.boilerplate === 'bowser' &&
-        <img alt='logo' width='100%' src={require('../../resources/bowser.png')}/>
+        <div style={{display:'flex',width:'100%',justifyContent:'center',alignItems:'center'}}>
+
+        <img alt='logo' width='256' src={require('../../resources/bowser.png')}/>
+
+        </div>
         }
-        {this.props.boilerplate === 'ts_andross' &&
-        <img alt='logo' width='100%' src={require('../../resources/ignite-typescript-logo.png')}/>
-        }
+
         {this.props.boilerplate === 'andross' &&
-        <ul style={{ width: '80%', padding: 0, paddingLeft: 16 }}>
+        <ul style={{ width: '92%', padding: 0, paddingLeft: 16 }}>
+
           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })}
+            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) })}
                    placeholder="Project's name ..." style={{
               color: 'white',
               height: 32,
@@ -73,7 +97,7 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
             <label className="switch">
               <input onChange={(e) => {
-                this.setState({ min: !this.state.min, max: false });
+                this.setState({ min: !this.state.min, max: !this.state.max });
               }} checked={this.state.min} type="checkbox"/>
               <span className="slider round"/>
             </label>
@@ -84,7 +108,7 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
             <label className="switch">
               <input onChange={(e) => {
-                this.setState({ max: !this.state.max, min: false });
+                this.setState({ max: !this.state.max, min: !this.state.min });
               }} checked={this.state.max} type="checkbox"/>
               <span className="slider round"/>
 
@@ -94,67 +118,67 @@ export default class NewProjectOptions extends Component<Props> {
 
           </li>
 
-          {/* <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}> */}
-          {/* <label className="switch"> */}
-          {/* <input onChange={(e) => { */}
-          {/* this.setState({ devScreens: e.target.value }); */}
-          {/* }} value={this.state.devScreens} type="checkbox"/> */}
-          {/* <span className="slider round"/> */}
-          {/* </label> */}
-          {/* <a style={{ fontSize: 16 }} > Ignite Dev Screens </a> */}
+           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+           <label className="switch">
+           <input onChange={(e) => {
+           this.setState({ devScreens: e.target.value });
+           }} value={this.state.devScreens} type="checkbox"/>
+           <span className="slider round"/>
+           </label>
+           <a style={{ fontSize: 16 }} > Ignite Dev Screens (WIP)</a>
 
-          {/* </li> */}
-          {/* <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}> */}
-          {/* <label className="switch"> */}
-          {/* <input onChange={(e) => { */}
-          {/* this.setState({ i18n: e.target.value }); */}
-          {/* }} value={this.state.i18n} type="checkbox"/> */}
-          {/* <span className="slider round"/> */}
+           </li>
+           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+           <label className="switch">
+           <input onChange={(e) => {
+           this.setState({ i18n: e.target.value });
+           }} value={this.state.i18n} type="checkbox"/>
+           <span className="slider round"/>
 
-          {/* </label> */}
-          {/* <a style={{ fontSize: 16 }}> I18n </a> */}
+           </label>
+           <a style={{ fontSize: 16 }}> I18n (WIP)</a>
 
-          {/* </li> */}
-          {/* <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}> */}
-          {/* <label className="switch"> */}
-          {/* <input onChange={(e) => { */}
-          {/* this.setState({ vectorIcons: e.target.vectorIcons }); */}
-          {/* }} value={this.state.vectorIcons} type="checkbox"/> */}
-          {/* <span className="slider round"/> */}
+           </li>
+           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+           <label className="switch">
+           <input onChange={(e) => {
+           this.setState({ vectorIcons: e.target.vectorIcons });
+           }} value={this.state.vectorIcons} type="checkbox"/>
+           <span className="slider round"/>
 
-          {/* </label> */}
-          {/* <a style={{ fontSize: 16 }}> Vector */}
-          {/* Icons </a> */}
+           </label>
+           <a style={{ fontSize: 16 }}> Vector
+           Icons (WIP)</a>
 
-          {/* </li> */}
-          {/* <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}> */}
-          {/* <label className="switch"> */}
-          {/* <input onChange={(e) => { */}
-          {/* this.setState({ animatable: e.target.animatable }); */}
-          {/* }} value={this.state.animatable} type="checkbox"/> */}
-          {/* <span className="slider round"/> */}
-          {/* </label> */}
-          {/* <a style={{ fontSize: 16 }}> Animatable </a> */}
+           </li>
+           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+           <label className="switch">
+           <input onChange={(e) => {
+           this.setState({ animatable: e.target.animatable });
+           }} value={this.state.animatable} type="checkbox"/>
+           <span className="slider round"/>
+           </label>
+           <a style={{ fontSize: 16 }}> Animatable (WIP)</a>
 
-          {/* </li> */}
-          {/* <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}> */}
-          {/* <label className="switch"> */}
-          {/* <input onChange={(e) => { */}
-          {/* this.setState({ reduxPersist: e.target.reduxPersist }); */}
-          {/* }} value={this.state.reduxPersist} type="checkbox"/> */}
-          {/* <span className="slider round"/> */}
+           </li>
+           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+           <label className="switch">
+           <input onChange={(e) => {
+           this.setState({ reduxPersist: e.target.reduxPersist });
+           }} value={this.state.reduxPersist} type="checkbox"/>
+           <span className="slider round"/>
 
-          {/* </label> */}
-          {/* <a style={{ fontSize: 16 }}> Redux */}
-          {/* Persist </a> */}
+           </label>
+           <a style={{ fontSize: 16 }}> Redux
+           Persist (WIP)</a>
 
-          {/* </li> */}
+           </li>
           <li style={{ display: 'flex', paddingTop: 16 }}>
             <a
               onClick={() => {
-                if (!this.state.isLoading) {
+                if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, {shell:true}, (error, stdout, stderr) => {
+                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, {shell:true}, (error, stdout, stderr) => {
                       this.setState({ stdout:this.state.stdout+stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
@@ -180,9 +204,9 @@ export default class NewProjectOptions extends Component<Props> {
         </ul>
         }
         {this.props.boilerplate === 'bowser' &&
-        <ul style={{ width: '80%', padding: 0, paddingLeft: 16 }}>
+        <ul style={{ width: '92%', padding: 0, paddingLeft: 16 }}>
           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })}
+            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) })}
                    placeholder="Project's name ..." style={{
               color: 'white',
               height: 32,
@@ -196,9 +220,9 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', paddingTop: 16 }}>
             <a
               onClick={() => {
-                if (!this.state.isLoading) {
+                if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-bowser`, [], (error, stdout, stderr) => {
+                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-bowser`, [], (error, stdout, stderr) => {
                       this.setState({ stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
@@ -225,9 +249,14 @@ export default class NewProjectOptions extends Component<Props> {
         }
 
         {this.props.boilerplate === 'ts_andross' &&
-        <ul style={{ width: '80%', padding: 0, paddingLeft: 16 }}>
+        <ul style={{ width: '92%', padding: 0, paddingLeft: 16 }}>
+          {this.props.boilerplate === 'ts_andross' &&
+          <li style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <img alt='logo' width='150' src={require('../../resources/ignite-typescript-logo.png')}/>
+          </li>
+          }
           <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })}
+            <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) })}
                    placeholder="Project's name ..." style={{
               color: 'white',
               height: 32,
@@ -297,9 +326,9 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', paddingTop: 16 }}>
             <a
               onClick={() => {
-                if (!this.state.isLoading) {
+                if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-boilerplate-andross-typescript ${this.state.login} ${this.state.main}`, [], (error, stdout, stderr) => {
+                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-boilerplate-andross-typescript ${this.state.login} ${this.state.main}`, [], (error, stdout, stderr) => {
                       this.setState({ stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
@@ -324,9 +353,19 @@ export default class NewProjectOptions extends Component<Props> {
           </li>
         </ul>
         }
-        <div style={{flex:1}}>
-        <textarea wrap='off' disabled rows="18"  style={{resize:'none',backgroundColor:'transparent',borderColor:'transparent',color:'white', fontSize: 14, width: '100%' ,maxWidth:'100%'}} value={`${this.state.stdout}\n${this.state.stderr}\n${this.state.error}`}/>
+        {(this.state.stdout !== null && this.state.stdout !== undefined && this.state.stdout.length > 0) &&
+        <div style={{ flex: 1 }}>
+          <textarea wrap='off' disabled rows="18" style={{
+            resize: 'none',
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+            color: 'white',
+            fontSize: 14,
+            width: '100%',
+            maxWidth: '100%'
+          }} value={`${this.state.stdout}\n${this.state.stderr}\n${this.state.error}`}/>
         </div>
+        }
       </div>
     );
   }
