@@ -28,7 +28,9 @@ export default class NewProjectOptions extends Component<Props> {
       //   reduxPersist: false,
       //   animatable: false,
       min: true,
-      max: false
+      max: false,
+      login:'',
+      main: '',
     };
   }
 
@@ -37,7 +39,7 @@ export default class NewProjectOptions extends Component<Props> {
       folderPath
     } = this.props;
     return (
-      <div style={{display:'flex',flexDirection:'column'}}>
+      <div style={{display:'flex',flexDirection:'column',overflow: 'scroll',height:710}}>
         <div className={styles.backButton} data-tid="backButton">
           <Link to={routes.NEW}>
             <i style={{ marginTop: 6, marginLeft: 6, height: 24 }} className="fa fa-arrow-left"/>
@@ -236,8 +238,74 @@ export default class NewProjectOptions extends Component<Props> {
               borderBottomColor: 'white'
             }}/>
           </li>
+          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+          <b style={{marginBottom:8}}>Login Template</b>
+          </li>
+          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+            <label className="radio-container">No Login
+              <input type="radio" name="login" value="nologin" onChange={(e)=>this.setState({login:'--nologin'})}/>
+                <span className="checkmark" />
+            </label>
+            <label className="radio-container">Simple Login
+              <input type="radio" name="login" value="simplelogin" onChange={(e)=>this.setState({login:'--simplelogin'})}/>
+                <span className="checkmark" />
+            </label>
+            <label className="radio-container">Sms Login
+              <input type="radio" name="login" value="smslogin" onChange={(e)=>this.setState({login:'--smslogin'})}/>
+                <span className="checkmark" />
+            </label>
+          </li>
+          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+
+          <b style={{marginBottom:8}}>Main Template</b>
+          </li>
+          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+
+            <label className="radio-container">Simple
+            <input type="radio" name="main" value="simple" onChange={(e)=>this.setState({main:'--simple'})}/>
+            <span className="checkmark" />
+          </label>
+            <label className="radio-container">Collapsible Toolbar
+              <input type="radio" name="main" value="collapsible" onChange={(e)=>this.setState({main:'--collapsible'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Material Backdrop
+              <input type="radio" name="main" value="backdrop" onChange={(e)=>this.setState({main:'--backdrop'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Bottom Tabbed
+              <input type="radio" name="main" value="bottomTabbed" onChange={(e)=>this.setState({main:'--bottom'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Top Tabbed
+              <input type="radio" name="main" value="topTabbed" onChange={(e)=>this.setState({main:'--top'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Navigation Drawer
+              <input type="radio" name="main" value="drawer" onChange={(e)=>this.setState({main:'--drawer'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Collapsible/Drawer
+              <input type="radio" name="main" value="collapsibleDrawer" onChange={(e)=>this.setState({main:'--cdrawer'})}/>
+              <span className="checkmark" />
+            </label>
+            <label className="radio-container">Social Media
+              <input type="radio" name="main" value="socialMedia" onChange={(e)=>this.setState({main:'--smedia'})}/>
+              <span className="checkmark" />
+            </label>
+          </li>
           <li style={{ display: 'flex', paddingTop: 16 }}>
-            <a style={{
+            <a
+              onClick={() => {
+                if (!this.state.isLoading) {
+                  this.setState({ isLoading: true }, () => {
+                    childProcess.exec(`cd /D ${folderPath} & ignite new ${this.state.name} -b ignite-boilerplate-andross-typescript ${this.state.login} ${this.state.main}`, [], (error, stdout, stderr) => {
+                      this.setState({ stdout, stderr, error, name: '', isLoading: false });
+                    });
+                  });
+                }
+              }}
+              style={{
                 flex: 1,
                 color: '#212121',
                 backgroundColor: '#eeeeee',
@@ -248,7 +316,7 @@ export default class NewProjectOptions extends Component<Props> {
                 textAlign: 'center'
               }}>
               {!this.state.isLoading ?
-                <b style={{ alignSelf: 'center' }}>W.I.P</b>
+                <b style={{ alignSelf: 'center' }}>New T-Andross</b>
                 :
                 <ReactLoading className="fa" type='bars' color='#212121' height={16} width={20}/>
               }

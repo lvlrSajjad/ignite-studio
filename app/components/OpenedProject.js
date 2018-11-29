@@ -72,15 +72,15 @@ export default class NewProject extends Component<Props> {
             }}> New Container </a>
 
           </li>
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i className="fa fa-fire fa-1x no-drag"/>
-            <Link style={{ fontSize: 16 }} to="/opened"> New List </Link>
+          {/*<li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>*/}
+            {/*<i className="fa fa-fire fa-1x no-drag"/>*/}
+            {/*<Link style={{ fontSize: 16 }} to="/opened"> New List </Link>*/}
 
-          </li>
-          <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
-            <i className="fa fa-fire fa-1x no-drag"/>
-            <Link style={{ fontSize: 16 }} to="/opened"> New Map </Link>
-          </li>
+          {/*</li>*/}
+          {/*<li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>*/}
+            {/*<i className="fa fa-fire fa-1x no-drag"/>*/}
+            {/*<Link style={{ fontSize: 16 }} to="/opened"> New Map </Link>*/}
+          {/*</li>*/}
           {this.state.isLoading &&
 
           <li style={{textAlign:'center',alignItems:'center',justifyContent:'center'}}>
