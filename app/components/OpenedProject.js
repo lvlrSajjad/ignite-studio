@@ -358,7 +358,7 @@ export default class NewProject extends Component<Props> {
         }
         {(this.state.stdout !== null && this.state.stdout !== undefined && this.state.stdout.length > 0) &&
         <div style={{ flex: 1 }}>
-          <textarea wrap='off' disabled rows="18" style={{
+          <textarea wrap='off' rows={18} disabled style={{
             resize: 'none',
             backgroundColor: 'transparent',
             borderColor: 'transparent',
