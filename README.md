@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
- Ignite Boilerplate Manager
+ Ignite Studio
  </br>
 </h1>
 
