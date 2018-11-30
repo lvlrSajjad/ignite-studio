@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import styles from './Home.css';
+const fixPath = require('fix-path');
+
+fixPath();
 
 type Props = {
   setFolderPath(folderPath: string): void

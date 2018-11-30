@@ -178,7 +178,7 @@ export default class NewProjectOptions extends Component<Props> {
               onClick={() => {
                 if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, {shell:true}, (error, stdout, stderr) => {
+                    childProcess.exec(`ignite new ${this.state.name} -b ignite-ir-boilerplate-andross${this.state.max ? ' --max' : ''}${this.state.min ? ' --min' : ''}  `, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                       this.setState({ stdout:this.state.stdout+stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
