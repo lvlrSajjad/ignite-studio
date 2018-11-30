@@ -91,7 +91,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & react-native run-android`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`react-native run-android`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -105,7 +105,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & react-native run-ios`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`react-native run-ios`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -117,7 +117,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g component ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g component ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -130,7 +130,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g container ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g container ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -143,7 +143,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g redux ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g redux ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -156,7 +156,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g saga ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g saga ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -169,7 +169,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g screen ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g screen ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -182,7 +182,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading && this.state.name.length > 0) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite g list ${this.state.name}`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite g list ${this.state.name}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -195,7 +195,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite add maps`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite add maps`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -208,7 +208,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite add mapbox`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite add mapbox`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -220,7 +220,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite add i18n`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite add i18n`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -232,7 +232,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite add vector-icons`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite add vector-icons`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -244,7 +244,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & ignite add material-ui`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`ignite add material-ui`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -289,7 +289,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & react-native run-android`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`react-native run-android`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });
@@ -303,7 +303,7 @@ export default class NewProject extends Component<Props> {
             <a style={{ fontSize: 16 }} onClick={() => {
               if (!this.state.isLoading) {
                 this.setState({ isLoading: true }, () => {
-                  childProcess.exec(`cd${this.state.drive}${folderPath} & react-native run-ios`, [], (error, stdout, stderr) => {
+                  childProcess.exec(`react-native run-ios`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                     this.setState({ stdout, stderr, error, name: '', isLoading: false });
                   });
                 });

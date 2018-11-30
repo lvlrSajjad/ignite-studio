@@ -222,7 +222,7 @@ export default class NewProjectOptions extends Component<Props> {
               onClick={() => {
                 if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-ir-boilerplate-bowser`, [], (error, stdout, stderr) => {
+                    childProcess.exec(`ignite new ${this.state.name} -b ignite-ir-boilerplate-bowser`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                       this.setState({ stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
@@ -328,7 +328,7 @@ export default class NewProjectOptions extends Component<Props> {
               onClick={() => {
                 if (!this.state.isLoading && this.state.name.length > 0) {
                   this.setState({ isLoading: true }, () => {
-                    childProcess.exec(`cd${this.state.drive}${folderPath} & ignite new ${this.state.name} -b ignite-boilerplate-andross-typescript ${this.state.login} ${this.state.main}`, [], (error, stdout, stderr) => {
+                    childProcess.exec(`ignite new ${this.state.name} -b ignite-boilerplate-andross-typescript ${this.state.login} ${this.state.main}`, {shell:true,cwd:folderPath}, (error, stdout, stderr) => {
                       this.setState({ stdout, stderr, error, name: '', isLoading: false });
                     });
                   });
