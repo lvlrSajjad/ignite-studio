@@ -1,7 +1,7 @@
 <h1 align="center">
 <br>
  Ignite Studio
- </br>
+</br>
 </h1>
 
 A tool for easing creation and adding things to ignite projects using electron
