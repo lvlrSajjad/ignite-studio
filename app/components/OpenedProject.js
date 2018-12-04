@@ -57,7 +57,10 @@ export default class NewProject extends Component<Props> {
   };
 
   openAtom = () => {
-    this.executeCommand(`atom`);
+    const {
+      folderPath
+    } = this.props;
+    this.executeCommand(`atom ${folderPath}`);
   };
 
   cleanGradle = () => {
@@ -85,43 +88,55 @@ export default class NewProject extends Component<Props> {
 
   generateSimpleContainer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name} --containerType=simple`);
     }
   };
 
   generateBottomTabbedContainer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=bottom`);
     }
   };
 
   generateTopTabbedComponent = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=top`);
     }
   };
 
   generateDrawerNavigationContainer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=drawer`);
     }
   };
 
   generateCollapsibleToolbarContainer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=collapsible`);
     }
   };
 
   generateBackdropContainer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=backdrop`);
     }
   };
 
   generateCollapsibleDrawerContianer = (name) => {
     if (name.length > 0) {
-      this.executeCommand(`ignite g container ${name}`);
+      this.executeCommand(`ignite g container ${name}  --containerType=collapsibledrawer`);
+    }
+  };
+
+  generateSimpleLogin = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g container ${name}  --containerType=login`);
+    }
+  };
+
+  generateSmsLogin = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g container ${name}  --containerType=smslogin`);
     }
   };
 
@@ -263,7 +278,7 @@ export default class NewProject extends Component<Props> {
         }
         {boilerplate === 'bowser' &&
         <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-          <img alt='logo' width='256' src={require('../../resources/bowser.png')}/>
+          <img alt='logo' width='242' src={require('../../resources/bowser.png')}/>
         </div>
         }
         {boilerplate === 'ts_andross' &&
@@ -355,7 +370,6 @@ export default class NewProject extends Component<Props> {
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-plus fa-1x no-drag"/>
               <a style={{ fontSize: 16 }} onClick={() => this.addMaps()}> Add Maps </a>
-
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-plus fa-1x no-drag"/>
@@ -461,6 +475,14 @@ export default class NewProject extends Component<Props> {
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-fire fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateSimpleLogin(name)}> New Simple Login </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-fire fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateSmsLogin(name)}> New Sms Login </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-fire fa-1x no-drag"/>
               <a style={{ fontSize: 16 }} onClick={() => this.generateScreen(name)}> New Screen </a>
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
@@ -541,18 +563,39 @@ export default class NewProject extends Component<Props> {
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-fire fa-1x no-drag"/>
-              <a style={{ fontSize: 16 }} onClick={() => {
-              }}> New Component (W.I.P) </a>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateBowserComponent(name)}> New Component </a>
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-fire fa-1x no-drag"/>
-              <a style={{ fontSize: 16 }} onClick={() => {
-              }}> New Model (W.I.P) </a>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateBowserSharedComponent(name)}> New Shared Component </a>
             </li>
             <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
               <i className="fa fa-fire fa-1x no-drag"/>
-              <a style={{ fontSize: 16 }} onClick={() => {
-              }}> New Screen (W.I.P) </a>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateBowserModel(name)}> New Model </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-fire fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.generateBowserScreen(name)}> New Screen </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-plus fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.addMaps()}> Add Maps </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-plus fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.addMapBox()}> Add MapBox </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-plus fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.addi18n()}> Add i18n </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-plus fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.addVectorIcons()}> Add Vector Icons </a>
+            </li>
+            <li style={{ alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
+              <i className="fa fa-plus fa-1x no-drag"/>
+              <a style={{ fontSize: 16 }} onClick={() => this.addMaterialUi()}> Add Material Ui </a>
             </li>
           </ul>
           }
@@ -581,4 +624,27 @@ export default class NewProject extends Component<Props> {
   }
 
 
+  generateBowserComponent = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g component ${name}  --folder views`);
+    }
+  };
+
+  generateBowserSharedComponent = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g component ${name}  --folder shared`);
+    }
+  };
+
+  generateBowserModel = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g model ${name}  --folder models`);
+    }
+  };
+
+  generateBowserScreen = (name) => {
+    if (name.length > 0) {
+      this.executeCommand(`ignite g screen ${name}  --folder views`);
+    }
+  }
 }

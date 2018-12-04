@@ -156,7 +156,7 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
             <label className="switch">
               <input onChange={() => {
-                this.setState({ min: !min, max: !max });
+                this.setState({ min: !min, max: !max,i18n: false,devScreens:false,animatable: false,reduxPersist:false,vectorIcons:false });
               }} checked={min} type="checkbox"/>
               <span className="slider round"/>
             </label>
@@ -167,7 +167,7 @@ export default class NewProjectOptions extends Component<Props> {
           <li style={{ display: 'flex', alignItems: 'left', textAlign: 'left', marginBottom: 16 }}>
             <label className="switch">
               <input onChange={() => {
-                this.setState({ max: !max, min: !min });
+                this.setState({ max: !max, min: !min,i18n: true,devScreens:true,animatable: true,reduxPersist:true,vectorIcons:true });
               }} checked={max} type="checkbox"/>
               <span className="slider round"/>
 
@@ -181,7 +181,7 @@ export default class NewProjectOptions extends Component<Props> {
             <label className="switch">
               <input onChange={(e) => {
                 this.setState({ devScreens: e.target.value });
-              }} value={devScreens} type="checkbox"/>
+              }} checked={devScreens} type="checkbox"/>
               <span className="slider round"/>
             </label>
             <a style={{ fontSize: 16 }}> Ignite Dev Screens (WIP)</a>
@@ -191,7 +191,7 @@ export default class NewProjectOptions extends Component<Props> {
             <label className="switch">
               <input onChange={(e) => {
                 this.setState({ i18n: e.target.value });
-              }} value={i18n} type="checkbox"/>
+              }} checked={i18n} type="checkbox"/>
               <span className="slider round"/>
 
             </label>
@@ -202,7 +202,7 @@ export default class NewProjectOptions extends Component<Props> {
             <label className="switch">
               <input onChange={(e) => {
                 this.setState({ vectorIcons: e.target.vectorIcons });
-              }} value={vectorIcons} type="checkbox"/>
+              }} checked={vectorIcons} type="checkbox"/>
               <span className="slider round"/>
 
             </label>
@@ -214,7 +214,7 @@ export default class NewProjectOptions extends Component<Props> {
             <label className="switch">
               <input onChange={(e) => {
                 this.setState({ animatable: e.target.animatable });
-              }} value={animatable} type="checkbox"/>
+              }} checked={animatable} type="checkbox"/>
               <span className="slider round"/>
             </label>
             <a style={{ fontSize: 16 }}> Animatable (WIP)</a>
@@ -224,7 +224,7 @@ export default class NewProjectOptions extends Component<Props> {
             <label className="switch">
               <input onChange={(e) => {
                 this.setState({ reduxPersist: e.target.reduxPersist });
-              }} value={reduxPersist} type="checkbox"/>
+              }} checked={reduxPersist} type="checkbox"/>
               <span className="slider round"/>
 
             </label>
