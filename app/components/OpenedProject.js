@@ -48,7 +48,7 @@ export default class NewProject extends Component<Props> {
     } else if (os === 'freebsd' || os === 'linux' || os === 'openbsd') {
       console.log('todo');
     } else if (os === 'darwin') {
-      console.log('todo');
+      childProcess.spawn ('open', [ '-a', 'Terminal', folderPath ]);
     }
   };
 
