@@ -29,7 +29,12 @@ export default class Home extends Component<Props> {
         let packageJson;
 
         try {
-          packageJson = fs.readFileSync(folderPath + '\\package.json');
+          const isWin = process.platform === "win32";
+          if (isWin) {
+            packageJson = fs.readFileSync(folderPath + '\\package.json');
+          } else {
+            packageJson = fs.readFileSync(folderPath + '/package.json');
+          }
         } catch (err) {
           remote.dialog.showMessageBox({ message: 'please open a valid react-native project' });
         }
